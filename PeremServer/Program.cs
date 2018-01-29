@@ -1,6 +1,8 @@
 ﻿using System;
-using System.Net.Sockets;
-using System.Threading;
+using System.Runtime.Remoting;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Channels.Http;
+using GeneralRemote;
 
 /**
  * Главный класс сервера
@@ -9,36 +11,22 @@ namespace PeremServer
 {
     class Program
     {
-        private const int Port = 1712;
-        private static TcpListener _listener;
+        const int PORT = 32321;
+        const string SOAP_NAME = "checker.soap";
 
-        private static void Main(string[] args)
+        static void Main(string[] args)
         {
-            try
-            {
-                _listener = new TcpListener(System.Net.IPAddress.Any, Port); // Из конфига
+            Console.WriteLine("STARTED");
 
-                _listener.Start();
-                Console.WriteLine("Start");
+            HttpChannel httpChannel = new HttpChannel(PORT);
+            ChannelServices.RegisterChannel(httpChannel, false);
 
-                while (true)
-                {
-                    //Новый клиент
-                    TcpClient client = _listener.AcceptTcpClient();
-                    Client objClient = new Client(client);
-                    
-                    //Новый поток д/обработки клиента
-                    Thread clientThread = new Thread(new ThreadStart(objClient.Process));
-                    clientThread.Start();
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
+            RemotingConfiguration.RegisterWellKnownServiceType(
+                typeof(GeneralRemoteClass),
+                SOAP_NAME,
+                WellKnownObjectMode.Singleton);
 
-            //Остановка listener
-            _listener?.Stop();
+            Console.Read();
         }
     }
 }
