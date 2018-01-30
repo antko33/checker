@@ -9,9 +9,9 @@ namespace GeneralRemote
             Console.WriteLine(message);
         }
 
-        public void ReplyFromServer()
+        public string ReplyFromServer()
         {
-            Console.WriteLine("message");
+            return "message";
         }
     }
 }
