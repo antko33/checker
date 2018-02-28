@@ -39,7 +39,7 @@ namespace PeremClient
                 }
 
                 //Если координаты не различаются, определить перемещения
-                for (int i = 1; i < deltasPU.Count; i++)  //i - номер загружения
+                for (int i = 1; i < deltasMain.Count; i++)  //i - номер загружения
                 {
                     if (deltasPU[i][indexInPU] == deltasMain[i][indexInModel]) continue;
                     
@@ -51,6 +51,13 @@ namespace PeremClient
                     var pair = new NodePair(coordsMain[indexInModel], deltasMain[i][indexInModel], mainParams,
                                             coordsPU[indexInPU], deltasPU[i][indexInPU], puParams);
                     wrongNodes.Add(pair);
+                }
+
+                //Удаляем узел (для увеличения производительности)
+                if (code == WRONG_DELTAS)
+                {
+                    coordsMain.RemoveAt(indexInModel);
+                    deltasMain.RemoveAt(indexInModel);
                 }
             }
         }
