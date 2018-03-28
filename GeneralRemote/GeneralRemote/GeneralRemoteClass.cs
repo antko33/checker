@@ -1,4 +1,6 @@
 ﻿using System;
+using PeremServer;
+using System.IO;
 
 namespace GeneralRemote
 {
@@ -9,9 +11,9 @@ namespace GeneralRemote
             Console.WriteLine(message);
         }
 
-        public string ReplyFromServer()
+        public FileInfo ReplyFromServer()
         {
-            return "message";
+            return new FileInfo(ServerSettings.queue[0]);
         }
     }
 }

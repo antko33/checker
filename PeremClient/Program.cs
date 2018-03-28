@@ -4,6 +4,11 @@ using System.Net.Sockets;
 using System.Text;
 using System.Xml;
 using PeremClient.Class;
+using GeneralRemote;
+using System.Runtime.Remoting;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Channels.Http;
+using System.IO;
 
 /**
  * Главный класс клиента
@@ -19,6 +24,18 @@ namespace PeremClient
 
         public static void Main(string[] args)
         {
+            HttpChannel channel = new HttpChannel();
+            ChannelServices.RegisterChannel(channel, false);
+            
+            GeneralRemoteClass remote =
+                (GeneralRemoteClass)Activator.GetObject(
+                    typeof(GeneralRemoteClass),
+                    "http://localhost:32321/checker.soap");
+
+            remote.SendToServer("aaa");
+            var finfo = remote.ReplyFromServer();
+            finfo.CopyTo(Directory.GetCurrentDirectory() + "/" + "123");
+
             /*TcpClient client = null;
             try
             {
@@ -78,13 +95,13 @@ namespace PeremClient
             client?.Close();
         }*/
 
-            coordsMain = Parser.ParseCoords("0.csv");
+            /*coordsMain = Parser.ParseCoords("0.csv");
             coordsPU = Parser.ParseCoords("1.csv");
             deltasMain = Parser.ParseDeltas("7.0");
             deltasPU = Parser.ParseDeltas("7.1");
             wrongNodes = new List<NodePair>(); //Костыль!
             Check();
-            Console.Write("okay {0} {1} {2} {3}", coordsMain.Count, coordsPU.Count, deltasMain[1][31].X, deltasPU[12][7].Z);
+            Console.Write("okay {0} {1} {2} {3}", coordsMain.Count, coordsPU.Count, deltasMain[1][31].X, deltasPU[12][7].Z);*/
             Console.Read();
         }
     }

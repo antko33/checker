@@ -3,12 +3,18 @@ using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Http;
 using GeneralRemote;
+using System.Collections.Generic;
 
 /**
  * Главный класс сервера
  */
 namespace PeremServer
 {
+    public static class ServerSettings
+    {
+        public static List<string> queue = new List<string>();
+    }
+
     class Program
     {
         const int PORT = 32321;
@@ -17,6 +23,7 @@ namespace PeremServer
         static void Main(string[] args)
         {
             Console.WriteLine("STARTED");
+            ServerSettings.queue.Add("1.a");
 
             HttpChannel httpChannel = new HttpChannel(PORT);
             ChannelServices.RegisterChannel(httpChannel, false);
