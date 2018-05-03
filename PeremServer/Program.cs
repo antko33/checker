@@ -12,7 +12,7 @@ namespace PeremServer
 {
     public static class ServerSettings
     {
-        public static List<string> queue = new List<string>();
+        public static Queue<TaskItem> tasks = new Queue<TaskItem>();
     }
 
     class Program
@@ -23,7 +23,7 @@ namespace PeremServer
         static void Main(string[] args)
         {
             Console.WriteLine("STARTED");
-            ServerSettings.queue.Add("1.a");
+            ServerSettings.tasks.Enqueue(new TaskItem("1.a"));
 
             HttpChannel httpChannel = new HttpChannel(PORT);
             ChannelServices.RegisterChannel(httpChannel, false);

@@ -6,7 +6,7 @@ using System.IO;
 
 namespace PeremServer
 {
-    class TaskItem
+    public class TaskItem
     {
         private string path;
         FileStream file;
