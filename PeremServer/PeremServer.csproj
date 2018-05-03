@@ -84,6 +84,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report.cs" />
+    <Compile Include="TaskItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
