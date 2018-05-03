@@ -11,9 +11,9 @@ namespace GeneralRemote
             Console.WriteLine(message);
         }
 
-        public FileInfo ReplyFromServer()
+        public TaskItem GetTaskFromServer()
         {
-            return new FileInfo(ServerSettings.queue[0]);
+            return ServerSettings.tasks.Dequeue();
         }
     }
 }

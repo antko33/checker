@@ -33,8 +33,8 @@ namespace PeremClient
                     "http://localhost:32321/checker.soap");
 
             remote.SendToServer("aaa");
-            var finfo = remote.ReplyFromServer();
-            finfo.CopyTo(Directory.GetCurrentDirectory() + "/" + "123");
+            var finfo = remote.GetTaskFromServer();
+            return;
 
             /*TcpClient client = null;
             try

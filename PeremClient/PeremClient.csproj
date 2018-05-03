@@ -30,7 +30,15 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GeneralRemote, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\GeneralRemote\GeneralRemote\bin\Debug\GeneralRemote.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PeremServer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\PeremServer\bin\Release\PeremServer.exe</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -49,12 +57,6 @@
     <Compile Include="Class\NumbersSet.cs" />
     <Compile Include="Class\Parser.cs" />
     <Compile Include="Program.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GeneralRemote\GeneralRemote\GeneralRemote.csproj">
-      <Project>{4a8b94da-1a1a-4581-90e2-0566d3651f5a}</Project>
-      <Name>GeneralRemote</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

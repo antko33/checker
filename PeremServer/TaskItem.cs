@@ -6,6 +6,7 @@ using System.IO;
 
 namespace PeremServer
 {
+    [Serializable]
     public class TaskItem
     {
         private string path;
