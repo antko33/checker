@@ -11,7 +11,7 @@ namespace GeneralRemote
             Console.WriteLine(message);
         }
 
-        public TaskItem GetTaskFromServer()
+        public Task GetTaskFromServer()
         {
             return ServerSettings.tasks.Dequeue();
         }

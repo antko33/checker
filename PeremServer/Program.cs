@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
-using System.Runtime.Remoting.Channels.Http;
+using System.Runtime.Remoting.Channels.Tcp;
 using GeneralRemote;
 using System.Collections.Generic;
 
@@ -12,28 +12,41 @@ namespace PeremServer
 {
     public static class ServerSettings
     {
-        public static Queue<TaskItem> tasks = new Queue<TaskItem>();
+        public static Queue<Task> tasks = new Queue<Task>();
     }
 
     class Program
     {
+        /// <TODO>
+        /// хардкод недопустим, исправить
+        /// </TODO>
         const int PORT = 32321;
-        const string SOAP_NAME = "checker.soap";
+        const string REM_NAME = "checker.rem";
+        static List<List<string>> files = new List<List<string>> { new List<string> { @"Z:\1.txt", @"Z:\2.txt" } };
 
         static void Main(string[] args)
         {
             Console.WriteLine("STARTED");
-            ServerSettings.tasks.Enqueue(new TaskItem("1.a"));
 
-            HttpChannel httpChannel = new HttpChannel(PORT);
-            ChannelServices.RegisterChannel(httpChannel, false);
+            CreateTaskQueue();
+
+            TcpChannel tcpChannel = new TcpChannel(PORT);
+            ChannelServices.RegisterChannel(tcpChannel, false);
 
             RemotingConfiguration.RegisterWellKnownServiceType(
                 typeof(GeneralRemoteClass),
-                SOAP_NAME,
+                REM_NAME,
                 WellKnownObjectMode.Singleton);
 
             Console.Read();
+        }
+
+        private static void CreateTaskQueue()
+        {
+            foreach(var l in files)
+            {
+                ServerSettings.tasks.Enqueue(new Task(l[0], l[1]));
+            }
         }
     }
 }
