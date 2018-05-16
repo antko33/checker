@@ -2,12 +2,12 @@
 
 namespace PeremClient.Class
 {
-    /*
-     * Класс, описывающий перемещения узла
-     */
+    /// <summary>
+    /// Класс, описывающий перемещения в узле
+    /// </summary>
     public class Delta : NumbersSet
     {
-        private const double DELTA_TOLERANCE = 0.01; //Из конфига
+        private const double DELTA_TOLERANCE = 0.2; //Из конфига
 
         public double UX;
         public double UY;

@@ -52,7 +52,7 @@
     <Compile Include="Class\Coord.cs" />
     <Compile Include="Class\CoordParser.cs" />
     <Compile Include="Class\Delta.cs" />
-    <Compile Include="Class\DeltaParcer.cs" />
+    <Compile Include="Class\DeltaParser.cs" />
     <Compile Include="Class\NodePair.cs" />
     <Compile Include="Class\NumbersSet.cs" />
     <Compile Include="Class\Parser.cs" />

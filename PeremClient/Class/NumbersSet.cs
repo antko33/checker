@@ -1,9 +1,8 @@
 ﻿namespace PeremClient.Class
 {
-    /**
-     * Абстрактный класс, который унаследуют классы Coord и Delta
-     */
-
+    /// <summary>
+    /// Абстрактный класс, предтавляющий некоторый набор чисел
+    /// </summary>
     public abstract class NumbersSet
     {
         public double X;

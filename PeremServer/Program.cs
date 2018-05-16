@@ -4,48 +4,65 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 using GeneralRemote;
 using System.Collections.Generic;
+using System.IO;
 
-/**
- * Главный класс сервера
- */
+/// <summary>
+/// Главный класс сервера
+/// </summary>
 namespace PeremServer
 {
+    /// <summary>
+    /// Предтавляет набор свойств приложения сервера
+    /// </summary>
     public static class ServerSettings
     {
-        public static Queue<Task> tasks = new Queue<Task>();
+        internal static int Port;
+        internal static string RemName;
+        internal static int ProjectUnits;
+        internal static string PathToFiles;
+        public static Queue<Task> Tasks = new Queue<Task>();
+        public static Task Model = null;
     }
 
     class Program
     {
-        /// <TODO>
-        /// хардкод недопустим, исправить
-        /// </TODO>
-        const int PORT = 32321;
-        const string REM_NAME = "checker.rem";
-        static List<List<string>> files = new List<List<string>> { new List<string> { @"Z:\1.txt", @"Z:\2.txt" } };
-
         static void Main(string[] args)
         {
+            Init();
             Console.WriteLine("STARTED");
 
-            CreateTaskQueue();
-
-            TcpChannel tcpChannel = new TcpChannel(PORT);
+            TcpChannel tcpChannel = new TcpChannel(ServerSettings.Port);
             ChannelServices.RegisterChannel(tcpChannel, false);
 
             RemotingConfiguration.RegisterWellKnownServiceType(
                 typeof(GeneralRemoteClass),
-                REM_NAME,
+                ServerSettings.RemName,
                 WellKnownObjectMode.Singleton);
 
             Console.Read();
         }
 
-        private static void CreateTaskQueue()
+        /// <summary>
+        /// Чтение настроек из ini-файла
+        /// </summary>
+        private static void Init()
         {
-            foreach(var l in files)
+            Ini ini = new Ini("settings.ini");
+            ServerSettings.Port = Convert.ToInt32(ini.GetValue("Port", "General"));
+            ServerSettings.RemName = ini.GetValue("RemName", "General");
+            ServerSettings.ProjectUnits = Convert.ToInt32(ini.GetValue("ProjectUnits", "General"));
+            ServerSettings.PathToFiles = ini.GetValue("PathToFiles", "General");
+
+            string file1, file2;
+            file1 = Path.Combine(ServerSettings.PathToFiles, ini.GetValue("File1", "Model"));
+            file2 = Path.Combine(ServerSettings.PathToFiles, ini.GetValue("File2", "Model"));
+            ServerSettings.Model = new Task(file1, file2);
+            for (int i = 1; i <= ServerSettings.ProjectUnits; i++)
             {
-                ServerSettings.tasks.Enqueue(new Task(l[0], l[1]));
+                file1 = Path.Combine(ServerSettings.PathToFiles, ini.GetValue("File1", "Project Unit " + i.ToString()));
+                file2 = Path.Combine(ServerSettings.PathToFiles, ini.GetValue("File2", "Project Unit " + i.ToString()));
+                Task t = new Task(file1, file2);
+                ServerSettings.Tasks.Enqueue(t);
             }
         }
     }

@@ -2,12 +2,12 @@
 
 namespace PeremClient.Class
 {
-    /**
-     * Класс, описывающий координаты узла
-     */
+    /// <summary>
+    /// Класс, описывающий координаты узла
+    /// </summary>
     public class Coord : NumbersSet
     {
-        private const double COORD_TOLERANCE = 0.01; //Из конфига
+        private const double COORD_TOLERANCE = 0.1; //Из конфига
 
         public Coord(double x, double y, double z) : base(x, y, z) { }
 

@@ -25,6 +25,10 @@ namespace PeremServer
             task = Tuple.Create<TaskItem, TaskItem>(ti1, ti2);
         }
 
+        /// <summary>
+        /// Возвращает кортеж, описывающий задание
+        /// </summary>
+        /// <returns></returns>
         public Tuple<TaskItem, TaskItem> GetTask()
         {
             return task;

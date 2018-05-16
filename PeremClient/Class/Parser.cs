@@ -7,15 +7,17 @@ namespace PeremClient.Class
     //Парсеры работают
     public static partial class Parser
     {
-        /**
-         * Поиск точки начала чтения
-         */
+        /// <summary>
+        /// Поиск точки начала чтения
+        /// </summary>
+        /// <param name="reader">StreamReader обрабатываемого файла</param>
+        /// <returns>Номер строки (начиная с 0), начиная с которой файл содержит полезную информацию</returns>
         private static int FindStartLine(StreamReader reader)
         {
             int begin = 0;  //Возвращаемое значение
             string line;
 
-            Regex loadNumberRegExp = new Regex(@"^\s+\d+\s-{1}\s+");  //Регулярка проверяет строку на наличие номера загружения
+            Regex loadNumberRegExp = new Regex(@"\s+\d+\s-{1}\s+");  //Регулярка проверяет строку на наличие номера загружения
             for (int i = 0; (line = reader.ReadLine()) != null; i++)
             {
                 if (line.Length < 7) continue;
@@ -29,17 +31,21 @@ namespace PeremClient.Class
             return begin;
         }
 
-        /**
-         * Подсчёт количества загружений
-         */
+        /// <summary>
+        /// Подсчёт количества загружений
+        /// </summary>
+        /// <param name="reader">StreamReader обрабатываемого файла</param>
+        /// <param name="begin">Номер строки (начиная с 0), начиная с которой файл содержит полезную информацию</param>
+        /// <returns>Количество загружений</returns>
         private static int CalculateLoads(StreamReader reader, int begin)
         {
             string line;
             int maxCalc = 0;
-            bool six = false; //Тире в 6 символе?
+            bool six = false; //Дефис в 6 символе?
             for (int i = -1 * begin - 1; (line = reader.ReadLine()) != null; i++)
             {
                 if (i <= 0) continue;
+                if (line.Length < 17) continue;
                 line = line.Replace('\0', ' ');
                 if (line[17] == '-')
                     break;

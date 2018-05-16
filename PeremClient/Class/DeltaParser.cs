@@ -10,11 +10,14 @@ namespace PeremClient.Class
         private const int MIN_INTERESTING_LENGTH = 7;
         private const int SYMBOLS_PER_NUMBER = 8;
 
-        /**
-         * Считывает перемещения узлов из fic-файла
-         */
+        /// <summary>
+        /// Считывает перемещения узлов из fic-файла
+        /// </summary>
+        /// <param name="path">Путь к файлу с перемещениями</param>
+        /// <returns>Список перемещений в зависимости от номера узла и загружения</returns>
         public static List<List<Delta>> ParseDeltas(string path)
         {
+            string sep = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
             string line;
             var reader = File.OpenText(path);
             var list = new List<List<Delta>>();
@@ -31,6 +34,7 @@ namespace PeremClient.Class
             for (int i = 1; i <= loads; i++)
             {
                 list[i] = new List<Delta>();
+                list[i].Add(null);
             }
 
             for (int i = -1 * a; (line = reader.ReadLine()) != null; i++)
@@ -62,7 +66,7 @@ namespace PeremClient.Class
                         double readNum;
                         try
                         {
-                            readNum = Convert.ToDouble(line.Substring(0, 8).Replace('.', ','));
+                            readNum = Convert.ToDouble(line.Substring(0, SYMBOLS_PER_NUMBER).Replace(".", sep).Replace(",", sep));
                         }
                         catch
                         {
@@ -95,7 +99,7 @@ namespace PeremClient.Class
                         int maxNumber = numbersOfNodes[numbersOfNodes.Length - 1];
                         for (int j = 1; j <= loads; j++)
                         {
-                            list[j].AddRange(new Delta[maxNumber - minNumber + 1]);
+                            list[j].AddRange(new Delta[maxNumber - minNumber]);
                             for (int k = minNumber + 1; k <= maxNumber; k++)
                                 list[j][k] = new Delta(0, 0, 0, 0, 0, 0);
                         }

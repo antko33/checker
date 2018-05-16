@@ -13,7 +13,16 @@ namespace GeneralRemote
 
         public Task GetTaskFromServer()
         {
-            return ServerSettings.tasks.Dequeue();
+#if DEBUG
+            return ServerSettings.Tasks.Peek();
+#else
+            return ServerSettings.Tasks.Dequeue();
+#endif
+        }
+
+        public Task GetModelFromServer()
+        {
+            return ServerSettings.Model;
         }
     }
 }

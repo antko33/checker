@@ -5,9 +5,11 @@ namespace PeremClient.Class
 {
     public static partial class Parser
     {
-        /**
-         * Считывает координаты узлов из csv-файла
-         */
+        /// <summary>
+        /// Считывает координаты узлов из csv-файла
+        /// </summary>
+        /// <param name="path">Путь к файлу с координатами</param>
+        /// <returns>Список координат узлов</returns>
         public static List<Coord> ParseCoords(string path)
         {
             string line;
