@@ -9,6 +9,8 @@ using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.IO;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 /// <summary>
 /// Главный класс клиента
@@ -79,6 +81,9 @@ namespace PeremClient
                 return;
             }
 
+            Stopwatch sw = new Stopwatch();
+
+            sw.Start();
             Console.WriteLine("Parsing...");
             CoordsPU = Parser.ParseCoords(ClientSettings.InputFile1);
             Console.WriteLine("\tPU coords parsed");
@@ -89,6 +94,34 @@ namespace PeremClient
             DeltasMain = Parser.ParseDeltas(ClientSettings.GeneralInputFile2);
             Console.WriteLine("\tModel deltas parsed");
             Console.WriteLine("Success");
+            sw.Stop();
+            Console.WriteLine($"Posled: {sw.Elapsed.TotalSeconds}");
+
+            sw.Restart();
+            Parallel.Invoke(
+                () =>
+                {
+                    CoordsPU = Parser.ParseCoords(ClientSettings.InputFile1);
+                    Console.WriteLine("\tPU coords parsed");
+                },
+                () =>
+                {
+                    DeltasPU = Parser.ParseDeltas(ClientSettings.InputFile2);
+                    Console.WriteLine("\tPU coords parsed");
+                },
+                () =>
+                {
+                    CoordsMain = Parser.ParseCoords(ClientSettings.GeneralInputFile1);
+                    Console.WriteLine("\tModel coords parsed");
+                },
+                () =>
+                {
+                    DeltasMain = Parser.ParseDeltas(ClientSettings.GeneralInputFile2);
+                    Console.WriteLine("\tModel deltas parsed");
+                });
+            Console.WriteLine("Success");
+            sw.Stop();
+            Console.WriteLine($"Parllel: {sw.Elapsed.TotalSeconds}");
 
             Console.Write("Checking... ");
             Check();

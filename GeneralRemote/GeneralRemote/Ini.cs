@@ -45,7 +45,7 @@ public class Ini
         {
             var line = l.text;
 
-            if (line.StartsWith(";") || string.IsNullOrWhiteSpace(line))
+            if (line.StartsWith(";") || string.IsNullOrWhiteSpace(line)) //-V3027
             {
                 currentSection.Add(";" + l.idx.ToString(), line);
                 continue;

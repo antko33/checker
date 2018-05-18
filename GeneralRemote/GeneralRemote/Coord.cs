@@ -5,6 +5,7 @@ namespace GeneralRemote
     /// <summary>
     /// Класс, описывающий координаты узла
     /// </summary>
+    [Serializable]
     public class Coord : NumbersSet
     {
         private const double COORD_TOLERANCE = 0.1; //Из конфига

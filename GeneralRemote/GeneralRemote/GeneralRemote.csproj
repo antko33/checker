@@ -43,6 +43,7 @@
     <Compile Include="Coord.cs" />
     <Compile Include="Delta.cs" />
     <Compile Include="GeneralRemoteClass.cs" />
+    <Compile Include="Ini.cs" />
     <Compile Include="NodePair.cs" />
     <Compile Include="NumbersSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

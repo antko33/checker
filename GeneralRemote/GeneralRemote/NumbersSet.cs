@@ -3,6 +3,7 @@
     /// <summary>
     /// Абстрактный класс, предтавляющий некоторый набор чисел
     /// </summary>
+    [System.Serializable]
     public abstract class NumbersSet
     {
         public double X;

@@ -5,6 +5,7 @@ namespace GeneralRemote
     /// <summary>
     /// Класс, описывающий перемещения в узле
     /// </summary>
+    [Serializable]
     public class Delta : NumbersSet
     {
         private const double DELTA_TOLERANCE = 0.2; //Из конфига
