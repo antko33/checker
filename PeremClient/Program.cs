@@ -36,6 +36,8 @@ namespace PeremClient
 
         public static void Main(string[] args)
         {
+            string host;    // Имя компьютера
+
             Console.Write("Initializing... ");
             Init();
             Console.WriteLine("Success");
@@ -54,7 +56,7 @@ namespace PeremClient
                       typeof(GeneralRemoteClass),
                       String.Format("tcp://{0}:{1}/{2}", ClientSettings.Address, ClientSettings.Port, ClientSettings.RemName));
 
-                string host = System.Net.Dns.GetHostName();
+                host = System.Net.Dns.GetHostName();
                 remote.SendToServer(host + " connected");
                 Console.WriteLine("Success");
 
@@ -92,6 +94,7 @@ namespace PeremClient
             Check();
             Console.WriteLine("Success");
             remote.Send(WrongNodes);
+            remote.SendToServer($"{host} finished");
 
             Console.Read();
         }

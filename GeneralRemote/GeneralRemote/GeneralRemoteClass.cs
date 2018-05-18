@@ -5,6 +5,7 @@ namespace GeneralRemote
 {
     public class GeneralRemoteClass : MarshalByRefObject
     {
+
         public void SendToServer(string message)
         {
             Console.WriteLine(message);
