@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using PeremClient.Class;
+using GeneralRemote;
 
 namespace PeremClient
 {

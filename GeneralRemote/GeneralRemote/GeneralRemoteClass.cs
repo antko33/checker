@@ -1,5 +1,4 @@
 ﻿using System;
-using PeremServer;
 using System.IO;
 
 namespace GeneralRemote
@@ -9,6 +8,11 @@ namespace GeneralRemote
         public void SendToServer(string message)
         {
             Console.WriteLine(message);
+        }
+
+        public void Send(object a)
+        {
+            ServerSettings.Result = a;
         }
 
         public Task GetTaskFromServer()

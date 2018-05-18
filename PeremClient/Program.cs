@@ -33,6 +33,7 @@ namespace PeremClient
 
     internal static partial class Program
     {
+
         public static void Main(string[] args)
         {
             Console.Write("Initializing... ");
@@ -90,7 +91,7 @@ namespace PeremClient
             Console.Write("Checking... ");
             Check();
             Console.WriteLine("Success");
-            Console.WriteLine(WrongNodes.Count.ToString());
+            remote.Send(WrongNodes);
 
             Console.Read();
         }
@@ -119,7 +120,7 @@ namespace PeremClient
                 ini.GetValue("GeneralInputFile2", "Model Files"));
         }
 
-        private static void GetTaskFile(PeremServer.TaskItem item, string file)
+        private static void GetTaskFile(TaskItem item, string file)
         {
             using (StreamReader sr = new StreamReader(item.GetFileStream()))
             {

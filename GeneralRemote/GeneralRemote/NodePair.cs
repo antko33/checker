@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace PeremClient.Class
+namespace GeneralRemote
 {
-    /*
-     * Класс, описывающий пару "неверных" узлов
-     */
-    class NodePair
+    /// <summary>
+    /// Класс, описывающий пару "неверных" узлов
+    /// </summary>
+    [Serializable]
+    public class NodePair
     {
         private Coord _coordMain, _coordPU;
         private Delta _deltaMain, _deltaPU;

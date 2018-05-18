@@ -2,28 +2,15 @@
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
-using GeneralRemote;
 using System.Collections.Generic;
 using System.IO;
+using GeneralRemote;
 
-/// <summary>
-/// Главный класс сервера
-/// </summary>
 namespace PeremServer
 {
     /// <summary>
-    /// Предтавляет набор свойств приложения сервера
+    /// Главный класс сервера
     /// </summary>
-    public static class ServerSettings
-    {
-        internal static int Port;
-        internal static string RemName;
-        internal static int ProjectUnits;
-        internal static string PathToFiles;
-        public static Queue<Task> Tasks = new Queue<Task>();
-        public static Task Model = null;
-    }
-
     class Program
     {
         static void Main(string[] args)
@@ -38,6 +25,8 @@ namespace PeremServer
                 typeof(GeneralRemoteClass),
                 ServerSettings.RemName,
                 WellKnownObjectMode.Singleton);
+
+            if (ServerSettings.Result != null) Console.WriteLine(((List<NodePair>)ServerSettings.Result).ToString());
 
             Console.Read();
         }

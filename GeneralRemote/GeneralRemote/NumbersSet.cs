@@ -1,4 +1,4 @@
-﻿namespace PeremClient.Class
+﻿namespace GeneralRemote
 {
     /// <summary>
     /// Абстрактный класс, предтавляющий некоторый набор чисел

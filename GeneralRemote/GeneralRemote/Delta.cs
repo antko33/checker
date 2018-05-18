@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PeremClient.Class
+namespace GeneralRemote
 {
     /// <summary>
     /// Класс, описывающий перемещения в узле

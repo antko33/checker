@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PeremClient.Class
+namespace GeneralRemote
 {
     /// <summary>
     /// Класс, описывающий координаты узла
@@ -16,6 +16,8 @@ namespace PeremClient.Class
         //Проверка координат узлов на совпадение и несовпадение
         public static bool operator ==(Coord n1, Coord n2)
         {
+            //if (n1 == null || n2 == null) return false;
+
             return (Math.Abs(n1.X - n2.X) <= COORD_TOLERANCE &&
                     Math.Abs(n1.Y - n2.Y) <= COORD_TOLERANCE &&
                     Math.Abs(n1.Z - n2.Z) <= COORD_TOLERANCE

@@ -19,6 +19,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
+    <DocumentationFile>bin\Debug\ConsoleApplication.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>pdbonly</DebugType>
@@ -49,12 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Check.cs" />
-    <Compile Include="Class\Coord.cs" />
     <Compile Include="Class\CoordParser.cs" />
-    <Compile Include="Class\Delta.cs" />
     <Compile Include="Class\DeltaParser.cs" />
-    <Compile Include="Class\NodePair.cs" />
-    <Compile Include="Class\NumbersSet.cs" />
     <Compile Include="Class\Parser.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
