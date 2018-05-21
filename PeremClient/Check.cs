@@ -24,9 +24,7 @@ namespace PeremClient
         private static void Check()
         {
             int indexInModel, code;
-            Stopwatch sw = new Stopwatch();
 
-            sw.Start();
             for (int indexInPU = 1; indexInPU < CoordsPU.Count; indexInPU++)    //Очередная координата узла ПЕ
             {
                 indexInModel = 0;
@@ -85,8 +83,6 @@ namespace PeremClient
                     }
                 }
             }
-            sw.Stop();
-            Console.WriteLine($"Posled: {sw.Elapsed.TotalSeconds}");
 
             /*sw.Restart();
             Parallel.For(1, CoordsPU.Count, Action);

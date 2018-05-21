@@ -39,5 +39,21 @@ namespace GeneralRemote
 
         public Dictionary<string, int> mainParams => _mainParams;
         public Dictionary<string, int> puParams => _puParams;
+
+        public static bool operator==(NodePair i1, NodePair i2)
+        {
+            return
+                i1.coordMain == i2.coordMain &&
+                i1.coordPU == i2.coordPU &&
+                i1.deltaMain == i2.deltaMain &&
+                i1.deltaPU == i2.deltaPU &&
+                i1.mainParams == i2.mainParams &&
+                i1.puParams == i2.puParams;
+        }
+
+        public static bool operator!=(NodePair i1, NodePair i2)
+        {
+            return !(i1 == i2);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace GeneralRemote
@@ -11,14 +12,15 @@ namespace GeneralRemote
             Console.WriteLine(message);
         }
 
-        public void Send(object a)
+        public void Send(List<NodePair> a)
         {
-            ServerSettings.Result = a;
+            ServerSettings.Result.AddRange(a);
+            ServerSettings.CheckIfAllDone();
         }
 
         public Task GetTaskFromServer()
         {
-#if DEBUG
+#if !DEBUG
             return ServerSettings.Tasks.Peek();
 #else
             return ServerSettings.Tasks.Dequeue();

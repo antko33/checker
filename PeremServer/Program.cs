@@ -5,6 +5,7 @@ using System.Runtime.Remoting.Channels.Tcp;
 using System.Collections.Generic;
 using System.IO;
 using GeneralRemote;
+using System.Threading;
 
 namespace PeremServer
 {
@@ -26,8 +27,8 @@ namespace PeremServer
                 ServerSettings.RemName,
                 WellKnownObjectMode.Singleton);
 
-            if (ServerSettings.Result != null) Console.WriteLine(((List<NodePair>)ServerSettings.Result).ToString());
-
+            ServerSettings.sem.Wait();
+            Console.WriteLine("yyyyyyy");
             Console.Read();
         }
 

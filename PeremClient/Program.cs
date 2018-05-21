@@ -81,9 +81,6 @@ namespace PeremClient
                 return;
             }
 
-            Stopwatch sw = new Stopwatch();
-
-            sw.Start();
             /*Console.WriteLine("Parsing...");
             CoordsPU = Parser.ParseCoords(ClientSettings.InputFile1);
             Console.WriteLine("\tPU coords parsed");
@@ -97,7 +94,6 @@ namespace PeremClient
             sw.Stop();
             Console.WriteLine($"Posled: {sw.Elapsed.TotalSeconds}");*/
 
-            sw.Restart();
             Parallel.Invoke(
                 () =>
                 {
@@ -120,15 +116,13 @@ namespace PeremClient
                     Console.WriteLine("\tModel deltas parsed");
                 });
             Console.WriteLine("Success");
-            sw.Stop();
-            Console.WriteLine($"Parllel: {sw.Elapsed.TotalSeconds}");
 
             Console.Write("Checking... ");
             Check();
             Console.WriteLine("Success");
-            remote.Send(WrongNodes);
             remote.SendToServer($"{host} finished");
-
+            remote.Send(WrongNodes);
+            
             Console.Read();
         }
 
