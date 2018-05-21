@@ -17,7 +17,7 @@ namespace GeneralRemote
         //Проверка координат узлов на совпадение и несовпадение
         public static bool operator ==(Coord n1, Coord n2)
         {
-            //if (n1 == null || n2 == null) return false;
+            //if (n1 is null || n2 is null) return false;
 
             return (Math.Abs(n1.X - n2.X) <= COORD_TOLERANCE &&
                     Math.Abs(n1.Y - n2.Y) <= COORD_TOLERANCE &&
@@ -30,16 +30,16 @@ namespace GeneralRemote
             return !(n1 == n2);
         }
 
-        private static bool Equals(Coord other)
+        /*private static bool Equals(Coord other)
         {
             throw new NotImplementedException();
-        }
+        }*/
 
         public override bool Equals(object obj)
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((Coord)obj);
+            return obj.GetType() == GetType() && this == (obj as Coord);
         }
 
         public override int GetHashCode()

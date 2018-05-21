@@ -84,7 +84,7 @@ namespace PeremClient
             Stopwatch sw = new Stopwatch();
 
             sw.Start();
-            Console.WriteLine("Parsing...");
+            /*Console.WriteLine("Parsing...");
             CoordsPU = Parser.ParseCoords(ClientSettings.InputFile1);
             Console.WriteLine("\tPU coords parsed");
             DeltasPU = Parser.ParseDeltas(ClientSettings.InputFile2);
@@ -95,7 +95,7 @@ namespace PeremClient
             Console.WriteLine("\tModel deltas parsed");
             Console.WriteLine("Success");
             sw.Stop();
-            Console.WriteLine($"Posled: {sw.Elapsed.TotalSeconds}");
+            Console.WriteLine($"Posled: {sw.Elapsed.TotalSeconds}");*/
 
             sw.Restart();
             Parallel.Invoke(

@@ -88,12 +88,12 @@ namespace PeremClient
             sw.Stop();
             Console.WriteLine($"Posled: {sw.Elapsed.TotalSeconds}");
 
-            sw.Restart();
+            /*sw.Restart();
             Parallel.For(1, CoordsPU.Count, Action);
             sw.Stop();
-            Console.WriteLine($"Parallel: {sw.Elapsed.TotalSeconds}");
+            Console.WriteLine($"Parallel: {sw.Elapsed.TotalSeconds}");*/
 
-            void Action(int indexInPU)
+            /*void Action(int indexInPU)
             {
                 indexInModel = 0;
 
@@ -150,7 +150,7 @@ namespace PeremClient
                             DeltasMain[i].RemoveAt(indexInModel);
                     }
                 }
-            }
+            }*/
         }
     }
 }
