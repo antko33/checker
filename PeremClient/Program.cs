@@ -56,7 +56,6 @@ namespace PeremClient
                 remote.SendToServer(host + " connected");
                 Console.WriteLine("Success");
 
-                Process.GetCurrentProcess().CloseMainWindow();
                 // Получение задания с сервера
                 Console.Write("Recieving task... ");
                 var task = remote.GetTaskFromServer();
@@ -75,19 +74,6 @@ namespace PeremClient
                 Console.Read();
                 return;
             }
-
-            /*Console.WriteLine("Parsing...");
-            CoordsPU = Parser.ParseCoords(ClientSettings.InputFile1);
-            Console.WriteLine("\tPU coords parsed");
-            DeltasPU = Parser.ParseDeltas(ClientSettings.InputFile2);
-            Console.WriteLine("\tPU deltas parsed");
-            CoordsMain = Parser.ParseCoords(ClientSettings.GeneralInputFile1);
-            Console.WriteLine("\tModel coords parsed");
-            DeltasMain = Parser.ParseDeltas(ClientSettings.GeneralInputFile2);
-            Console.WriteLine("\tModel deltas parsed");
-            Console.WriteLine("Success");
-            sw.Stop();
-            Console.WriteLine($"Posled: {sw.Elapsed.TotalSeconds}");*/
 
             Parallel.Invoke(
                 () =>

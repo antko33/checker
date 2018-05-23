@@ -7,8 +7,8 @@ namespace PeremServer
 {
     internal class Report
     {
-        private const int WRONG_COORDS = 0;
-        private const int WRONG_Delta = 1;
+        private const int WRONG_COORDS = 1;
+        private const int WRONG_DELTAS = 0;
 
         private StreamWriter _sw;
         private int _countWrongCoords = 0;
@@ -37,7 +37,7 @@ namespace PeremServer
                     {
                         WriteWrongCoords(np);
                     }
-                    else
+                    else 
                     {
                         WriteWrongDelta(np);
                     }
@@ -65,13 +65,29 @@ namespace PeremServer
         private void WriteWrongDelta(NodePair np)
         {
             _sw.WriteLine("Перемещения в узле в мoдели и в ПЕ различны");
-            _sw.WriteLine("\tМодель \tПЕ \tОтклонение");
-            _sw.WriteLine($"\tX: {np.DeltaMain.X} \t{np.DeltaPU.X} \t{Math.Abs(np.DeltaMain.X - np.DeltaPU.X)}");
-            _sw.WriteLine($"\tY: {np.DeltaMain.Y} \t{np.DeltaPU.Y} \t{Math.Abs(np.DeltaMain.Y - np.DeltaPU.Y)}");
-            _sw.WriteLine($"\tZ: {np.DeltaMain.Z} \t{np.DeltaPU.Z} \t{Math.Abs(np.DeltaMain.Z - np.DeltaPU.Z)}");
-            _sw.WriteLine($"\tUX: {np.DeltaMain.UX} \t{np.DeltaPU.UX} \t{Math.Abs(np.DeltaMain.UX - np.DeltaPU.UX)}");
-            _sw.WriteLine($"\tUY: {np.DeltaMain.UY} \t{np.DeltaPU.UY} \t{Math.Abs(np.DeltaMain.UY - np.DeltaPU.UY)}");
-            _sw.WriteLine($"\tUZ: {np.DeltaMain.UZ} \t{np.DeltaPU.UZ} \t{Math.Abs(np.DeltaMain.UZ - np.DeltaPU.UZ)}");
+            _sw.WriteLine("\tМодель:");
+            _sw.WriteLine($"\tX: {np.DeltaMain.X}");
+            _sw.WriteLine($"\tY: {np.DeltaMain.Y}");
+            _sw.WriteLine($"\tZ: {np.DeltaMain.Z}");
+            _sw.WriteLine($"\tUX: {np.DeltaMain.UX}");
+            _sw.WriteLine($"\tUY: {np.DeltaMain.UY}");
+            _sw.WriteLine($"\tUZ: {np.DeltaMain.UZ}");
+
+            _sw.WriteLine("\tПЕ:");
+            _sw.WriteLine($"\tX: {np.DeltaPU.X}");
+            _sw.WriteLine($"\tY: {np.DeltaPU.Y}");
+            _sw.WriteLine($"\tZ: {np.DeltaPU.Z}");
+            _sw.WriteLine($"\tUX: {np.DeltaPU.UX}");
+            _sw.WriteLine($"\tUY: {np.DeltaPU.UY}");
+            _sw.WriteLine($"\tUZ: {np.DeltaPU.UZ}");
+
+            _sw.WriteLine("\tОтклонение:");
+            _sw.WriteLine($"\tX: {Math.Abs(np.DeltaMain.X - np.DeltaPU.X)}");
+            _sw.WriteLine($"\tY: {Math.Abs(np.DeltaMain.Y - np.DeltaPU.Y)}");
+            _sw.WriteLine($"\tZ: {Math.Abs(np.DeltaMain.Z - np.DeltaPU.Z)}");
+            _sw.WriteLine($"\tUX: {Math.Abs(np.DeltaMain.UX - np.DeltaPU.UX)}");
+            _sw.WriteLine($"\tUY: {Math.Abs(np.DeltaMain.UY - np.DeltaPU.UY)}");
+            _sw.WriteLine($"\tUZ: {Math.Abs(np.DeltaMain.UZ - np.DeltaPU.UZ)}");
             _sw.WriteLine($"ПЕ № {np.PuParams.Item1}, загружение № {np.PuParams.Item2}, узел № {np.PuParams.Item3}");
             _sw.WriteLine($"В модели загружение № {np.MainParams.Item1}, узел № {np.MainParams.Item2}");
             _sw.WriteLine("--------------------------------------------------------\n");

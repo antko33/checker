@@ -45,6 +45,7 @@ namespace PeremServer
             ServerSettings.RemName = ini.GetValue("RemName", "General");
             ServerSettings.ProjectUnits = Convert.ToInt32(ini.GetValue("ProjectUnits", "General"));
             ServerSettings.PathToFiles = ini.GetValue("PathToFiles", "General");
+            ServerSettings.Report = ini.GetValue("Report", "General");
 
             string file1, file2;
             file1 = Path.Combine(ServerSettings.PathToFiles, ini.GetValue("File1", "Model"));
