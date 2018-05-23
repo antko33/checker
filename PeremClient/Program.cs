@@ -11,6 +11,7 @@ using System.Runtime.Remoting.Channels.Tcp;
 using System.IO;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 /// <summary>
 /// Главный класс клиента
@@ -31,15 +32,16 @@ namespace PeremClient
         internal static string GeneralInputFile1;
         internal static string GeneralInputFile2;
         internal static string PathToFiles;
+        internal static int PUNumber;
     }
 
     internal static partial class Program
     {
+        static GeneralRemoteClass remote = null;
+        static string host;    // Имя компьютера
 
         public static void Main(string[] args)
-        {
-            string host;    // Имя компьютера
-
+        {            
             Console.Write("Initializing... ");
             Init();
             Console.WriteLine("Success");
@@ -48,8 +50,6 @@ namespace PeremClient
             Console.Write("Connecting to server... ");
             TcpChannel tcpChannel = new TcpChannel();
             ChannelServices.RegisterChannel(tcpChannel, false);
-
-            GeneralRemoteClass remote = null;
 
             try
             {
@@ -62,6 +62,8 @@ namespace PeremClient
                 remote.SendToServer(host + " connected");
                 Console.WriteLine("Success");
 
+                Process.GetCurrentProcess().Exited += Program_Exited;
+                Process.GetCurrentProcess().CloseMainWindow();
                 // Получение задания с сервера
                 Console.Write("Recieving task... ");
                 var task = remote.GetTaskFromServer();
@@ -74,7 +76,7 @@ namespace PeremClient
 
                 Console.WriteLine("Success");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.Read();
@@ -122,8 +124,13 @@ namespace PeremClient
             Console.WriteLine("Success");
             remote.SendToServer($"{host} finished");
             remote.Send(WrongNodes);
-            
+
             Console.Read();
+        }
+
+        private static void Program_Exited(object sender, EventArgs e)
+        {
+            remote.OnClientExit(host);
         }
 
         /// <summary>

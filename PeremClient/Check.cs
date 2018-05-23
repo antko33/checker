@@ -42,8 +42,9 @@ namespace PeremClient
                 //Если координаты различаются, добавить в WrongNodes
                 if (code == WRONG_COORDS)
                 {
-                    var parameters = new Dictionary<string, int> {{"Index", indexInPU}};
-                    var pair = new NodePair(null, null, null, CoordsPU[indexInPU], null, parameters, WRONG_COORDS);
+                    var parameters = new Tuple<int, int, int>(ClientSettings.PUNumber, -1, indexInPU);
+                    //var pair = new NodePair(null, null, null, CoordsPU[indexInPU], null, parameters, WRONG_COORDS);
+                    var pair = new NodePair(CoordsPU[indexInPU], parameters);
                     lock (locker)
                     {
                         WrongNodes.Add(pair);
@@ -55,11 +56,11 @@ namespace PeremClient
                 for (int i = 1; i < DeltasMain.Count; i++)  //i - номер загружения
                 {
                     if (DeltasPU[i][indexInPU] == DeltasMain[i][indexInModel]) continue;
-                    
-                    //Если перемещения различаются, записать в WrongNodes
-                    var mainParams = new Dictionary<string, int> {{"Index", indexInModel}, {"Load", i}};
 
-                    var puParams = new Dictionary<string, int> {{"Index", indexInPU}, {"Load", i}};
+                    //Если перемещения различаются, записать в WrongNodes
+                    var mainParams = new Tuple<int, int>(i, indexInModel);
+
+                    var puParams = new Tuple<int, int, int>(ClientSettings.PUNumber, i, indexInPU);
 
                     var pair = new NodePair(CoordsMain[indexInModel], DeltasMain[i][indexInModel], mainParams,
                                             CoordsPU[indexInPU], DeltasPU[i][indexInPU], puParams);
@@ -69,7 +70,7 @@ namespace PeremClient
                     }
                 }
 
-                //Удаляем узел (для увеличения производительности)
+                // Удаляем узел (для увеличения производительности)
                 // Если код WRONG_DELTAS, то с этим узлом мы уже разобрались
                 // и смело можем его удалять.
                 // Если WRONG_COORDS, то этот узел може ещё пригодиться

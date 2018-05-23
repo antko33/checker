@@ -31,5 +31,10 @@ namespace GeneralRemote
         {
             return ServerSettings.Model;
         }
+
+        public void OnClientExit(string host)
+        {
+            Console.WriteLine($"{host} finished incorrectly");
+        }
     }
 }

@@ -18,6 +18,7 @@ namespace GeneralRemote
         public static Queue<Task> Tasks = new Queue<Task>();
         public static Task Model = null;
         public static List<NodePair> Result = new List<NodePair>();
+        public static string Report;
 
         private static int done = 0;
 

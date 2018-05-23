@@ -28,7 +28,12 @@ namespace PeremServer
                 WellKnownObjectMode.Singleton);
 
             ServerSettings.sem.Wait();
-            Console.WriteLine("yyyyyyy");
+            Console.WriteLine("Generating report...");
+            Report report = new Report(ServerSettings.Report, ServerSettings.Result);
+            report.GenerateReport();
+            Console.WriteLine("Report generarted");
+            Console.WriteLine("FINISH");
+
             Console.Read();
         }
 

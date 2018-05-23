@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace GeneralRemote
 {
@@ -18,10 +19,11 @@ namespace GeneralRemote
          * 1 - в модели нет узла с подходящими координатами;
          */
 
-        private Dictionary<string, int> _mainParams, _puParams;
+        private Tuple<int, int> _mainParams;
+        private Tuple<int /* pu */, int /* load */, int /* node */> _puParams;
 
-        public NodePair(Coord cm, Delta dm, Dictionary<string, int> mainInts,
-                        Coord cpu, Delta dpu, Dictionary<string, int>puInts,
+        public NodePair(Coord cm, Delta dm, Tuple<int, int> mainInts,
+                        Coord cpu, Delta dpu, Tuple<int, int, int> puInts,
                         int code = 0)
         {
             _coordMain = cm; _deltaMain = dm; _mainParams = mainInts;
@@ -29,26 +31,36 @@ namespace GeneralRemote
             _code = code;
         }
 
-        public Coord coordMain => _coordMain;
-        public Coord coordPU => _coordPU;
+        public NodePair(Coord cpu, Tuple<int, int, int> puInts, int code = 1)
+        {
+            _coordPU = cpu;
+            _puParams = puInts;
+            _code = code;
+        }
 
-        public Delta deltaMain => _deltaMain;
-        public Delta deltaPU => _deltaPU;
+        public Coord CoordMain => _coordMain;
+        public Coord CoordPU => _coordPU;
 
-        public int code => _code;
+        public Delta DeltaMain => _deltaMain;
+        public Delta DeltaPU => _deltaPU;
 
-        public Dictionary<string, int> mainParams => _mainParams;
-        public Dictionary<string, int> puParams => _puParams;
+        public int Code => _code;
+
+        public Tuple<int, int> MainParams => _mainParams;
+        public Tuple<int, int, int> PuParams => _puParams;
 
         public static bool operator==(NodePair i1, NodePair i2)
         {
             return
-                i1.coordMain == i2.coordMain &&
-                i1.coordPU == i2.coordPU &&
-                i1.deltaMain == i2.deltaMain &&
-                i1.deltaPU == i2.deltaPU &&
-                i1.mainParams == i2.mainParams &&
-                i1.puParams == i2.puParams;
+                i1.CoordMain == i2.CoordMain &&
+                i1.CoordPU == i2.CoordPU &&
+                i1.DeltaMain == i2.DeltaMain &&
+                i1.DeltaPU == i2.DeltaPU &&
+                i1.MainParams.Item1 == i2.MainParams.Item1 &&
+                i1.MainParams.Item2 == i2.MainParams.Item2 &&
+                i1.PuParams.Item1 == i2.PuParams.Item1 &&
+                i1.PuParams.Item2 == i2.PuParams.Item2 &&
+                i1.PuParams.Item3 == i2.PuParams.Item3;
         }
 
         public static bool operator!=(NodePair i1, NodePair i2)
