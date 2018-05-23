@@ -16,7 +16,5 @@
             Y = y;
             Z = z;
         }
-
-        public abstract bool isZero(); //true, если все свойства равны 0
     }
 }

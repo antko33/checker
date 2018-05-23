@@ -10,9 +10,6 @@ namespace PeremServer
         private const int WRONG_COORDS = 0;
         private const int WRONG_Delta = 1;
 
-        private string _file;
-        private List<NodePair> _result;
-
         private StreamWriter _sw;
         private int _countWrongCoords = 0;
         private int _countWrongDelta = 0;

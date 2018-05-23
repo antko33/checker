@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net.Sockets;
-using System.Text;
-using System.Xml;
-using PeremClient.Class;
-using GeneralRemote;
-using System.Runtime.Remoting;
+using System.Diagnostics;
+using System.IO;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
-using System.IO;
 using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
+using GeneralRemote;
+using PeremClient.Class;
 
 /// <summary>
 /// Главный класс клиента
@@ -23,7 +17,7 @@ namespace PeremClient
     /// </summary>
     internal static class ClientSettings
     {
-        //Из конфига
+        // Из конфига
         internal static int Port;
         internal static string Address;
         internal static string RemName;
@@ -62,7 +56,6 @@ namespace PeremClient
                 remote.SendToServer(host + " connected");
                 Console.WriteLine("Success");
 
-                Process.GetCurrentProcess().Exited += Program_Exited;
                 Process.GetCurrentProcess().CloseMainWindow();
                 // Получение задания с сервера
                 Console.Write("Recieving task... ");
@@ -126,11 +119,6 @@ namespace PeremClient
             remote.Send(WrongNodes);
 
             Console.Read();
-        }
-
-        private static void Program_Exited(object sender, EventArgs e)
-        {
-            remote.OnClientExit(host);
         }
 
         /// <summary>

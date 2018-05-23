@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 
 namespace GeneralRemote
 {
+    /// <summary>
+    /// Экземпляр задания в виде 1 файла
+    /// </summary>
     [Serializable]
     public class TaskItem
     {
@@ -22,18 +22,9 @@ namespace GeneralRemote
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fs">Файловый поток необходимого файла</param>
-        public TaskItem(FileStream fs)
-        {
-            file = fs;
-        }
-
-        /// <summary>
         /// Возвращает предтавляемый файл в виде файлового потока
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Файловый поток соответствующего файла</returns>
         public FileStream GetFileStream()
         {
             if (file != null) return file;

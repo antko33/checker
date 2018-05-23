@@ -10,47 +10,28 @@ namespace GeneralRemote
     {
         private const double COORD_TOLERANCE = 0.1; //Из конфига
 
+        /// <param name="x">Коордната узла по оси X</param>
+        /// <param name="y">Коордната узла по оси Y</param>
+        /// <param name="z">Коордната узла по оси Z</param>
         public Coord(double x, double y, double z) : base(x, y, z) { }
 
-        public override bool isZero() => X == 0 && Y == 0 && Z == 0;
-
-        //Проверка координат узлов на совпадение и несовпадение
+        /// <summary>
+        /// Проверка координат узлов на совпадение и несовпадение
+        /// </summary>
         public static bool operator ==(Coord n1, Coord n2)
         {
-            //if (n1 is null || n2 is null) return false;
-
-            return (Math.Abs(n1.X - n2.X) <= COORD_TOLERANCE &&
+            return (Math.Abs(n1.X - n2.X) <= COORD_TOLERANCE && //-V3115
                     Math.Abs(n1.Y - n2.Y) <= COORD_TOLERANCE &&
                     Math.Abs(n1.Z - n2.Z) <= COORD_TOLERANCE
             );
         }
 
+        /// <summary>
+        /// Проверка координат на неравенство
+        /// </summary>
         public static bool operator !=(Coord n1, Coord n2)
         {
             return !(n1 == n2);
-        }
-
-        /*private static bool Equals(Coord other)
-        {
-            throw new NotImplementedException();
-        }*/
-
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && this == (obj as Coord);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = X.GetHashCode();
-                hashCode = (hashCode * 397) ^ Y.GetHashCode();
-                hashCode = (hashCode * 397) ^ Z.GetHashCode();
-                return hashCode;
-            }
         }
     }
 }

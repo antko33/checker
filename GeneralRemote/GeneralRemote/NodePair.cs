@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections;
 
 namespace GeneralRemote
 {
@@ -38,21 +36,42 @@ namespace GeneralRemote
             _code = code;
         }
 
+        /// <summary>
+        /// Координаты узлов модели
+        /// </summary>
         public Coord CoordMain => _coordMain;
+        /// <summary>
+        /// Коорднаты узлов ПЕ
+        /// </summary>
         public Coord CoordPU => _coordPU;
 
+        /// <summary>
+        /// Перемещения в узлах модели
+        /// </summary>
         public Delta DeltaMain => _deltaMain;
+        /// <summary>
+        /// Перемещения в узлах ПЕ
+        /// </summary>
         public Delta DeltaPU => _deltaPU;
 
+        /// <summary>
+        /// 0 - ошибка координат, 1 - ошибка перемещений
+        /// </summary>
         public int Code => _code;
 
+        /// <summary>
+        /// Параметры узла в модели
+        /// </summary>
         public Tuple<int, int> MainParams => _mainParams;
+        /// <summary>
+        /// Параметры узла в ПЕ
+        /// </summary>
         public Tuple<int, int, int> PuParams => _puParams;
 
         public static bool operator==(NodePair i1, NodePair i2)
         {
             return
-                i1.CoordMain == i2.CoordMain &&
+                i1.CoordMain == i2.CoordMain && //-V3115
                 i1.CoordPU == i2.CoordPU &&
                 i1.DeltaMain == i2.DeltaMain &&
                 i1.DeltaPU == i2.DeltaPU &&

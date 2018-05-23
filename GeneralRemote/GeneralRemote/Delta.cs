@@ -10,8 +10,17 @@ namespace GeneralRemote
     {
         private const double DELTA_TOLERANCE = 0.2; //Из конфига
 
+        /// <summary>
+        /// Угловое перемещение отнсительно оси X
+        /// </summary>
         public double UX;
+        /// <summary>
+        /// Угловое перемещение отнсительно оси Y
+        /// </summary>
         public double UY;
+        /// <summary>
+        /// Угловое перемещение отнсительно оси Z
+        /// </summary>
         public double UZ;
 
         public Delta(double x, double y, double z, double ux, double uy, double uz)
@@ -22,15 +31,12 @@ namespace GeneralRemote
             UZ = uz;
         }
 
-        public override bool isZero()
-        {
-            return X == 0 && Y == 0 && Z == 0 && UX == 0 && UY == 0 && UZ == 0;
-        }
-
-        //Проверка перемещений на совпадение и несовпадение
+        /// <summary>
+        /// Проверка перемещений на совпадение и несовпадение
+        /// </summary>
         public static bool operator ==(Delta n1, Delta n2)
         {
-            return (Math.Abs(n1.X - n2.X) <= DELTA_TOLERANCE &&
+            return (Math.Abs(n1.X - n2.X) <= DELTA_TOLERANCE && //-V3115
                     Math.Abs(n1.Y - n2.Y) <= DELTA_TOLERANCE &&
                     Math.Abs(n1.Z - n2.Z) <= DELTA_TOLERANCE &&
                     Math.Abs(n1.UX - n2.UX) <= DELTA_TOLERANCE &&
@@ -42,29 +48,6 @@ namespace GeneralRemote
         public static bool operator !=(Delta d1, Delta d2)
         {
             return !(d1 == d2);
-        }
-
-        private bool Equals(Delta other)
-        {
-            return UX.Equals(other.UX) && UY.Equals(other.UY) && UZ.Equals(other.UZ);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == this.GetType() && Equals((Delta)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = UX.GetHashCode();
-                hashCode = (hashCode * 397) ^ UY.GetHashCode();
-                hashCode = (hashCode * 397) ^ UZ.GetHashCode();
-                return hashCode;
-            }
         }
     }
 }
