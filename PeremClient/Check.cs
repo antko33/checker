@@ -75,9 +75,11 @@ namespace PeremClient
                 {
                     lock (locker)
                     {
-                        CoordsMain.RemoveAt(indexInModel);
+                        //CoordsMain.RemoveAt(indexInModel);
+                        CoordsMain[indexInModel] = null;
                         for (int i = 1; i < DeltasMain.Count; i++)
-                            DeltasMain[i].RemoveAt(indexInModel);
+                            //DeltasMain[i].RemoveAt(indexInModel);
+                            DeltasMain[i][indexInModel] = null;
                     }
                 }
             }

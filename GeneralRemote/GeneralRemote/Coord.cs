@@ -20,6 +20,8 @@ namespace GeneralRemote
         /// </summary>
         public static bool operator ==(Coord n1, Coord n2)
         {
+            if (n2 is null || n1 is null) return false;
+
             return (Math.Abs(n1.X - n2.X) <= COORD_TOLERANCE && //-V3115
                     Math.Abs(n1.Y - n2.Y) <= COORD_TOLERANCE &&
                     Math.Abs(n1.Z - n2.Z) <= COORD_TOLERANCE
@@ -31,7 +33,12 @@ namespace GeneralRemote
         /// </summary>
         public static bool operator !=(Coord n1, Coord n2)
         {
-            return !(n1 == n2);
+            if (n2 is null || n1 is null) return true;
+
+            return (Math.Abs(n1.X - n2.X) > COORD_TOLERANCE || //-V3115
+                    Math.Abs(n1.Y - n2.Y) > COORD_TOLERANCE ||
+                    Math.Abs(n1.Z - n2.Z) > COORD_TOLERANCE
+            );
         }
     }
 }

@@ -31,14 +31,12 @@ namespace GeneralRemote
         /// <summary>
         /// Получение с сервера задания
         /// </summary>
+        /// <param name="n">Номер ПЕ</param>
         /// <returns>Задание</returns>
-        public Task GetTaskFromServer()
+        public Task GetTaskFromServer(out int n)
         {
-#if !DEBUG
-            return ServerSettings.Tasks.Peek();
-#else
+            n = ServerSettings.ProjectUnits - ServerSettings.Tasks.Count + 1;
             return ServerSettings.Tasks.Dequeue();
-#endif
         }
 
         /// <summary>

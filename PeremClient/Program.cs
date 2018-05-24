@@ -58,7 +58,7 @@ namespace PeremClient
 
                 // Получение задания с сервера
                 Console.Write("Recieving task... ");
-                var task = remote.GetTaskFromServer();
+                var task = remote.GetTaskFromServer(out ClientSettings.PUNumber);   // "Побочный эффект" - возврат номера ПЕ
                 GetTaskFile(task.GetTask().Item1, ClientSettings.InputFile1);
                 GetTaskFile(task.GetTask().Item2, ClientSettings.InputFile2);
 

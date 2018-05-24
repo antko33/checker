@@ -50,7 +50,7 @@ namespace PeremServer
         private void WriteFooter()
         {
             _sw.WriteLine($"Всего обработано узлов: {null}");
-            _sw.WriteLine($"Количество ПЕ: {null}");
+            _sw.WriteLine($"Количество ПЕ: {ServerSettings.ProjectUnits}");
             _sw.WriteLine($"Ошибок координат: {_countWrongCoords}");
             _sw.WriteLine($"Ошибок перемещений: {_countWrongDelta}");
         }
@@ -71,7 +71,7 @@ namespace PeremServer
             _sw.WriteLine($"\tZ: {np.DeltaMain.Z}");
             _sw.WriteLine($"\tUX: {np.DeltaMain.UX}");
             _sw.WriteLine($"\tUY: {np.DeltaMain.UY}");
-            _sw.WriteLine($"\tUZ: {np.DeltaMain.UZ}");
+            _sw.WriteLine($"\tUZ: {np.DeltaMain.UZ}\n");
 
             _sw.WriteLine("\tПЕ:");
             _sw.WriteLine($"\tX: {np.DeltaPU.X}");
@@ -79,7 +79,7 @@ namespace PeremServer
             _sw.WriteLine($"\tZ: {np.DeltaPU.Z}");
             _sw.WriteLine($"\tUX: {np.DeltaPU.UX}");
             _sw.WriteLine($"\tUY: {np.DeltaPU.UY}");
-            _sw.WriteLine($"\tUZ: {np.DeltaPU.UZ}");
+            _sw.WriteLine($"\tUZ: {np.DeltaPU.UZ}\n");
 
             _sw.WriteLine("\tОтклонение:");
             _sw.WriteLine($"\tX: {Math.Abs(np.DeltaMain.X - np.DeltaPU.X)}");
@@ -87,7 +87,7 @@ namespace PeremServer
             _sw.WriteLine($"\tZ: {Math.Abs(np.DeltaMain.Z - np.DeltaPU.Z)}");
             _sw.WriteLine($"\tUX: {Math.Abs(np.DeltaMain.UX - np.DeltaPU.UX)}");
             _sw.WriteLine($"\tUY: {Math.Abs(np.DeltaMain.UY - np.DeltaPU.UY)}");
-            _sw.WriteLine($"\tUZ: {Math.Abs(np.DeltaMain.UZ - np.DeltaPU.UZ)}");
+            _sw.WriteLine($"\tUZ: {Math.Abs(np.DeltaMain.UZ - np.DeltaPU.UZ)}\n");
             _sw.WriteLine($"ПЕ № {np.PuParams.Item1}, загружение № {np.PuParams.Item2}, узел № {np.PuParams.Item3}");
             _sw.WriteLine($"В модели загружение № {np.MainParams.Item1}, узел № {np.MainParams.Item2}");
             _sw.WriteLine("--------------------------------------------------------\n");
