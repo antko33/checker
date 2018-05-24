@@ -16,7 +16,7 @@ namespace PeremClient.Class
         {
             int begin = 0;  //Возвращаемое значение
             string line;
-
+            
             Regex loadNumberRegExp = new Regex(@"\s+\d+\s-{1}\s+");  //Регулярка проверяет строку на наличие номера загружения
             for (int i = 0; (line = reader.ReadLine()) != null; i++)
             {

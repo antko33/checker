@@ -47,5 +47,10 @@ namespace GeneralRemote
         {
             return ServerSettings.Model;
         }
+
+        public void OnClientExit(object sender, EventArgs e)
+        {
+            throw new Exception($"{sender.ToString()} disconnected incorrectly");
+        }
     }
 }

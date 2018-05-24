@@ -40,7 +40,6 @@ namespace PeremClient
                 if (code == WRONG_COORDS)
                 {
                     var parameters = new Tuple<int, int, int>(ClientSettings.PUNumber, -1, indexInPU);
-                    //var pair = new NodePair(null, null, null, CoordsPU[indexInPU], null, parameters, WRONG_COORDS);
                     var pair = new NodePair(CoordsPU[indexInPU], parameters);
                     lock (locker)
                     {
@@ -75,10 +74,8 @@ namespace PeremClient
                 {
                     lock (locker)
                     {
-                        //CoordsMain.RemoveAt(indexInModel);
                         CoordsMain[indexInModel] = null;
                         for (int i = 1; i < DeltasMain.Count; i++)
-                            //DeltasMain[i].RemoveAt(indexInModel);
                             DeltasMain[i][indexInModel] = null;
                     }
                 }

@@ -35,10 +35,12 @@ namespace PeremClient
         static string host;    // Имя компьютера
 
         public static void Main(string[] args)
-        {            
+        {
             Console.Write("Initializing... ");
             Init();
             Console.WriteLine("Success");
+
+            Process p = Process.Start("ClientMonitor.exe", String.Join("\\//", ClientSettings.Address, ClientSettings.Port.ToString(), ClientSettings.RemName));
 
             // Подключение к серверу с спользованием GeneralRemote
             Console.Write("Connecting to server... ");
@@ -74,7 +76,7 @@ namespace PeremClient
                 Console.Read();
                 return;
             }
-
+            
             Parallel.Invoke(
                 () =>
                 {
@@ -97,7 +99,7 @@ namespace PeremClient
                     Console.WriteLine("\tModel deltas parsed");
                 });
             Console.WriteLine("Success");
-
+            
             Console.Write("Checking... ");
             Check();
             Console.WriteLine("Success");
