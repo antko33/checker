@@ -48,9 +48,13 @@ namespace GeneralRemote
             return ServerSettings.Model;
         }
 
+        /// <summary>
+        /// Выполняется при отключении клиентского приложения
+        /// </summary>
         public void OnClientExit(object sender, EventArgs e)
         {
-            throw new Exception($"{sender.ToString()} disconnected incorrectly");
+            if (ServerSettings.NeedToRaiseException)
+                ServerSettings.serverThread.Abort(sender);
         }
     }
 }

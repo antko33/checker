@@ -5,12 +5,16 @@ VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeremClient", "PeremClient.csproj", "{55A30DC8-50D9-484F-80A9-AD920AF5E5B3}"
 	ProjectSection(ProjectDependencies) = postProject
+		{6582C7A2-90A0-4C71-BCD7-1E185A385A12} = {6582C7A2-90A0-4C71-BCD7-1E185A385A12}
 		{4A8B94DA-1A1A-4581-90E2-0566D3651F5A} = {4A8B94DA-1A1A-4581-90E2-0566D3651F5A}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralRemote", "..\GeneralRemote\GeneralRemote\GeneralRemote.csproj", "{4A8B94DA-1A1A-4581-90E2-0566D3651F5A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientMonitor", "..\ClientMonitor\ClientMonitor.csproj", "{6582C7A2-90A0-4C71-BCD7-1E185A385A12}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4A8B94DA-1A1A-4581-90E2-0566D3651F5A} = {4A8B94DA-1A1A-4581-90E2-0566D3651F5A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -15,7 +15,6 @@ namespace PeremServer
         static void Main(string[] args)
         {
             Init();
-            Console.WriteLine("STARTED");
 
             TcpChannel tcpChannel = new TcpChannel(ServerSettings.Port);
             ChannelServices.RegisterChannel(tcpChannel, false);
@@ -25,7 +24,21 @@ namespace PeremServer
                 ServerSettings.RemName,
                 WellKnownObjectMode.Singleton);
 
-            ServerSettings.sem.Wait();
+            Console.WriteLine("STARTED");
+
+            try
+            {
+                ServerSettings.sem.Wait();
+            }
+            catch (System.Threading.ThreadAbortException e)
+            {
+                OnClientExit(e.ExceptionState);
+                System.Threading.Thread.ResetAbort();
+                Console.Read();
+                return;
+            }
+            ServerSettings.NeedToRaiseException = false;
+
             Console.WriteLine("Generating report...");
             Report report = new Report(ServerSettings.Report, ServerSettings.Result);
             report.GenerateReport();
@@ -35,11 +48,18 @@ namespace PeremServer
             Console.Read();
         }
 
+        private static void OnClientExit(object exceptionInfo)
+        {
+            Console.WriteLine($"Потеряно соединение с {exceptionInfo.ToString()}. Операция прервана.");
+        }
+
         /// <summary>
         /// Чтение настроек из ini-файла
         /// </summary>
         private static void Init()
         {
+            ServerSettings.serverThread = System.Threading.Thread.CurrentThread;
+            ServerSettings.NeedToRaiseException = true;
             Ini ini = new Ini("settings.ini");
             ServerSettings.Port = Convert.ToInt32(ini.GetValue("Port", "General"));
             ServerSettings.RemName = ini.GetValue("RemName", "General");

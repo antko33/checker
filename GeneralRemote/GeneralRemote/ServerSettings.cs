@@ -56,5 +56,12 @@ namespace GeneralRemote
         /// Семафор, останавливающий работу серверного приложения до окончания проверки всеми вычислительными узлами
         /// </summary>
         public static SemaphoreSlim sem = new SemaphoreSlim(0);
+
+        /// <summary>
+        /// Представляет экземпляр потока выполнения серверного приложения
+        /// </summary>
+        public static Thread serverThread;
+
+        public static bool NeedToRaiseException { get; set; }
     }
 }
