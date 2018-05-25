@@ -34,6 +34,7 @@ namespace PeremServer
             {
                 OnClientExit(e.ExceptionState);
                 System.Threading.Thread.ResetAbort();
+                ChannelServices.UnregisterChannel(tcpChannel);
                 Console.Read();
                 return;
             }
