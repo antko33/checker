@@ -213,3 +213,4 @@ UpgradeLog*.htm
 *.ide
 *.ide
 PeremServer/.vs/PeremServer/v15/.suo
+PeremClient/.vs/PeremClient/v15/.suo

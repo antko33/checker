@@ -18,14 +18,14 @@ namespace PeremClient
     internal static class ClientSettings
     {
         // Из конфига
-        internal static int Port;
-        internal static string Address;
-        internal static string RemName;
-        internal static string InputFile1;
-        internal static string InputFile2;
-        internal static string GeneralInputFile1;
-        internal static string GeneralInputFile2;
-        internal static string PathToFiles;
+        internal static int Port { get; set; }
+        internal static string Address { get; set; }
+        internal static string RemName { get; set; }
+        internal static string InputFile1 { get; set; }
+        internal static string InputFile2 { get; set; }
+        internal static string GeneralInputFile1 { get; set; }
+        internal static string GeneralInputFile2 { get; set; }
+        internal static string PathToFiles { get; set; }
         internal static int PUNumber;
     }
 

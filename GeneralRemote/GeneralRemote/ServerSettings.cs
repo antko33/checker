@@ -11,35 +11,35 @@ namespace GeneralRemote
         /// <summary>
         /// Порт, на котором запущено приложение
         /// </summary>
-        public static int Port;
+        public static int Port { get; set; }
         /// <summary>
         /// URI хорошо известного типа
         /// </summary>
-        public static string RemName;
+        public static string RemName { get; set; }
         /// <summary>
         /// Количество проектных единиц
         /// </summary>
-        public static int ProjectUnits;
+        public static int ProjectUnits { get; set; }
         /// <summary>
         /// Путь к общей папке с файлами для проверки
         /// </summary>
-        public static string PathToFiles;
+        public static string PathToFiles { get; set; }
         /// <summary>
         /// Очередь заданий для распределения меду вычисительными узлами
         /// </summary>
-        public static Queue<Task> Tasks = new Queue<Task>();
+        public static Queue<Task> Tasks { get; set; } = new Queue<Task>();
         /// <summary>
         /// Представление модели
         /// </summary>
-        public static Task Model = null;
+        public static Task Model { get; set; } = null;
         /// <summary>
         /// Представление резуьлтата работы подсистемы
         /// </summary>
-        public static List<NodePair> Result = new List<NodePair>();
+        public static List<NodePair> Result { get; set; } = new List<NodePair>();
         /// <summary>
         /// Имя файла отчёта
         /// </summary>
-        public static string Report;
+        public static string Report { get; set; }
 
         private static int done = 0;
 
@@ -55,13 +55,16 @@ namespace GeneralRemote
         /// <summary>
         /// Семафор, останавливающий работу серверного приложения до окончания проверки всеми вычислительными узлами
         /// </summary>
-        public static SemaphoreSlim sem = new SemaphoreSlim(0);
+        public static SemaphoreSlim sem { get; set; } = new SemaphoreSlim(0);
 
         /// <summary>
         /// Представляет экземпляр потока выполнения серверного приложения
         /// </summary>
-        public static Thread serverThread;
+        public static Thread serverThread { get; set; }
 
+        /// <summary>
+        /// Указывает на необходимость вызова исключения в серверном приложении при обрыве связи с клиентом
+        /// </summary>
         public static bool NeedToRaiseException { get; set; }
     }
 }
