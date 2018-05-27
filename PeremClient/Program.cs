@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 using GeneralRemote;
 using PeremClient.Class;
 
-/// <summary>
-/// Главный класс клиента
-/// </summary>
 namespace PeremClient
 {
     /// <summary>
@@ -29,10 +26,14 @@ namespace PeremClient
         internal static int PUNumber;
     }
 
+    /// <summary>
+    /// Главный класс клиентского приложения
+    /// </summary>
     internal static partial class Program
     {
         static GeneralRemoteClass remote = null;
         static string host;    // Имя компьютера
+        static GeneralRemote.Task task, model = null;   // Написал с именем пространства имён, т. к. неоднозначная ссылка (конфликт с Threading, плохо!)
 
         public static void Main(string[] args)
         {
@@ -40,7 +41,14 @@ namespace PeremClient
             Init();
             Console.WriteLine("Success");
 
-            Process p = Process.Start("ClientMonitor.exe", String.Join("\\//", ClientSettings.Address, ClientSettings.Port.ToString(), ClientSettings.RemName));
+            try
+            {
+                Process p = Process.Start("ClientMonitor.exe", String.Join("\\//", ClientSettings.Address, ClientSettings.Port.ToString(), ClientSettings.RemName));
+            }
+            catch
+            {
+                Console.WriteLine("Не удалось запустить монитор процесса. Выполнение будет продолжено...");
+            }
 
             // Подключение к серверу с спользованием GeneralRemote
             Console.Write("Connecting to server... ");
@@ -57,26 +65,34 @@ namespace PeremClient
                 host = System.Net.Dns.GetHostName();
                 remote.SendToServer(host + " connected");
                 Console.WriteLine("Success");
-
-                // Получение задания с сервера
-                Console.Write("Recieving task... ");
-                var task = remote.GetTaskFromServer(out ClientSettings.PUNumber);   // "Побочный эффект" - возврат номера ПЕ
-                GetTaskFile(task.GetTask().Item1, ClientSettings.InputFile1);
-                GetTaskFile(task.GetTask().Item2, ClientSettings.InputFile2);
-
-                var model = remote.GetModelFromServer();
-                GetTaskFile(model.GetTask().Item1, ClientSettings.GeneralInputFile1);
-                GetTaskFile(model.GetTask().Item2, ClientSettings.GeneralInputFile2);
-
-                Console.WriteLine("Success");
             }
-            catch (Exception e)
+            catch
             {
-                Console.WriteLine(e.Message);
-                Console.Read();
+                Console.WriteLine("Не удалось подключиться к серверу");
                 return;
             }
-            
+
+            // Получение задания с сервера
+            Console.Write("Recieving task... ");
+            try
+            {
+                task = remote.GetTaskFromServer(out ClientSettings.PUNumber);   // "Побочный эффект" - возврат номера ПЕ
+                model = remote.GetModelFromServer();
+            }
+            catch
+            {
+                Console.WriteLine("Не удалось получить задание: очередь заданий пуста");
+                return;
+            }
+
+            GetTaskFile(task.GetTask().Item1, ClientSettings.InputFile1);
+            GetTaskFile(task.GetTask().Item2, ClientSettings.InputFile2);
+
+            GetTaskFile(model.GetTask().Item1, ClientSettings.GeneralInputFile1);
+            GetTaskFile(model.GetTask().Item2, ClientSettings.GeneralInputFile2);
+
+            Console.WriteLine("Success");
+                        
             Parallel.Invoke(
                 () =>
                 {
@@ -103,8 +119,16 @@ namespace PeremClient
             Console.Write("Checking... ");
             Check();
             Console.WriteLine("Success");
-            remote.SendToServer($"{host} finished");
-            remote.Send(WrongNodes);
+            try
+            {
+                remote.SendToServer($"{host} finished");
+                remote.Send(WrongNodes);
+            }
+            catch
+            {
+                Console.WriteLine("Сервер оборвал связь с клиентскими приложениями, выполнение задачи завершено");
+                return;
+            }
 
             Console.Read();
         }
