@@ -14,17 +14,35 @@ namespace PeremServer
     {
         static void Main(string[] args)
         {
-            Init();
+            try
+            {
+                Init();
+            }
+            catch(ApplicationException)
+            {
+                EmergencyExit("Файл настроек отсутствует или повреждён");
+            }
 
             TcpChannel tcpChannel = new TcpChannel(ServerSettings.Port);
-            ChannelServices.RegisterChannel(tcpChannel, false);
+            try
+            {
+                ChannelServices.RegisterChannel(tcpChannel, false);
+            }
+            catch (RemotingException e)
+            {
+                EmergencyExit(e.Message);
+            }
+            catch (System.Security.SecurityException)
+            {
+                EmergencyExit("Вы не имеете право настраивать удалённое взаимодействие");
+            }
 
             RemotingConfiguration.RegisterWellKnownServiceType(
                 typeof(GeneralRemoteClass),
                 ServerSettings.RemName,
                 WellKnownObjectMode.Singleton);
 
-            Console.WriteLine("STARTED");
+            Console.WriteLine("ГОТОВ");
 
             try
             {
@@ -35,18 +53,31 @@ namespace PeremServer
                 OnClientExit(e.ExceptionState);
                 System.Threading.Thread.ResetAbort();
                 ChannelServices.UnregisterChannel(tcpChannel);
-                Console.Read();
-                return;
+                EmergencyExit(null);
             }
             ServerSettings.NeedToRaiseException = false;
 
-            Console.WriteLine("Generating report...");
+            Console.WriteLine("Создание отчёта...");
             Report report = new Report(ServerSettings.Report, ServerSettings.Result);
-            report.GenerateReport();
-            Console.WriteLine("Report generarted");
-            Console.WriteLine("FINISH");
+            try
+            {
+                report.GenerateReport();
+            }
+            catch(ApplicationException)
+            {
+                EmergencyExit("Не удалось создать отчёт");
+            }
+            Console.WriteLine("Отчёт готов");
+            Console.WriteLine("ПРОВЕРКА ЗАВЕРШЕНА");
 
             Console.Read();
+        }
+
+        private static void EmergencyExit(string message)
+        {
+            Console.WriteLine(message);
+            Console.Read();
+            Environment.Exit(0);
         }
 
         private static void OnClientExit(object exceptionInfo)
@@ -54,9 +85,7 @@ namespace PeremServer
             Console.WriteLine($"Потеряно соединение с {exceptionInfo.ToString()}. Операция прервана.");
         }
 
-        /// <summary>
-        /// Чтение настроек из ini-файла
-        /// </summary>
+        // Чтение настроек из ini-файла
         private static void Init()
         {
             ServerSettings.serverThread = System.Threading.Thread.CurrentThread;
@@ -79,6 +108,9 @@ namespace PeremServer
                 Task t = new Task(file1, file2);
                 ServerSettings.Tasks.Enqueue(t);
             }
+
+            ServerSettings.CoordEpsilon = Convert.ToDouble(ini.GetValue("CoordEpsilon", "General", "0.1"));
+            ServerSettings.DeltaEpsilon = Convert.ToDouble(ini.GetValue("DeltaEpsilon", "General", "0.2"));
         }
     }
 }

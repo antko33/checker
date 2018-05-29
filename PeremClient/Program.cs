@@ -37,9 +37,9 @@ namespace PeremClient
 
         public static void Main(string[] args)
         {
-            Console.Write("Initializing... ");
+            Console.Write("Чтение параметров... ");
             Init();
-            Console.WriteLine("Success");
+            Console.WriteLine("Готово");
 
             try
             {
@@ -51,7 +51,7 @@ namespace PeremClient
             }
 
             // Подключение к серверу с спользованием GeneralRemote
-            Console.Write("Connecting to server... ");
+            Console.Write("Подключение к серверу... ");
             TcpChannel tcpChannel = new TcpChannel();
             ChannelServices.RegisterChannel(tcpChannel, false);
 
@@ -63,8 +63,8 @@ namespace PeremClient
                       String.Format("tcp://{0}:{1}/{2}", ClientSettings.Address, ClientSettings.Port, ClientSettings.RemName));
 
                 host = System.Net.Dns.GetHostName();
-                remote.SendToServer(host + " connected");
-                Console.WriteLine("Success");
+                remote.SendToServer(host + " подключён");
+                Console.WriteLine("Готово");
             }
             catch
             {
@@ -73,7 +73,7 @@ namespace PeremClient
             }
 
             // Получение задания с сервера
-            Console.Write("Recieving task... ");
+            Console.Write("Получение задания... ");
             try
             {
                 task = remote.GetTaskFromServer(out ClientSettings.PUNumber);   // "Побочный эффект" - возврат номера ПЕ
@@ -91,37 +91,37 @@ namespace PeremClient
             GetTaskFile(model.GetTask().Item1, ClientSettings.GeneralInputFile1);
             GetTaskFile(model.GetTask().Item2, ClientSettings.GeneralInputFile2);
 
-            Console.WriteLine("Success");
+            Console.WriteLine("Готово");
                         
             Parallel.Invoke(
                 () =>
                 {
                     CoordsPU = Parser.ParseCoords(ClientSettings.InputFile1);
-                    Console.WriteLine("\tPU coords parsed");
+                    Console.WriteLine("Координаты узлов ПЕ считаны");
                 },
                 () =>
                 {
                     DeltasPU = Parser.ParseDeltas(ClientSettings.InputFile2);
-                    Console.WriteLine("\tPU coords parsed");
+                    Console.WriteLine("Перемещения в узлах ПЕ считаны");
                 },
                 () =>
                 {
                     CoordsMain = Parser.ParseCoords(ClientSettings.GeneralInputFile1);
-                    Console.WriteLine("\tModel coords parsed");
+                    Console.WriteLine("Координаты узлов модели считаны");
                 },
                 () =>
                 {
                     DeltasMain = Parser.ParseDeltas(ClientSettings.GeneralInputFile2);
-                    Console.WriteLine("\tModel deltas parsed");
+                    Console.WriteLine("Перемещения в узлах модели считаны");
                 });
-            Console.WriteLine("Success");
+            Console.WriteLine("Готово");
             
-            Console.Write("Checking... ");
+            Console.Write("Проверка... ");
             Check();
-            Console.WriteLine("Success");
+            Console.WriteLine("Готово");
             try
             {
-                remote.SendToServer($"{host} finished");
+                remote.SendToServer($"{host} закончил");
                 remote.Send(WrongNodes);
             }
             catch
