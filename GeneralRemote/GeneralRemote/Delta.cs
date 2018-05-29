@@ -8,8 +8,6 @@ namespace GeneralRemote
     [Serializable]
     public class Delta : NumbersSet
     {
-        private const double DELTA_TOLERANCE = 0.2; //Из конфига
-
         /// <summary>
         /// Угловое перемещение отнсительно оси X
         /// </summary>
@@ -36,18 +34,22 @@ namespace GeneralRemote
         /// </summary>
         public static bool operator ==(Delta n1, Delta n2)
         {
-            return (Math.Abs(n1.X - n2.X) <= DELTA_TOLERANCE && //-V3115
-                    Math.Abs(n1.Y - n2.Y) <= DELTA_TOLERANCE &&
-                    Math.Abs(n1.Z - n2.Z) <= DELTA_TOLERANCE &&
-                    Math.Abs(n1.UX - n2.UX) <= DELTA_TOLERANCE &&
-                    Math.Abs(n1.UY - n2.UY) <= DELTA_TOLERANCE &&
-                    Math.Abs(n1.UZ - n2.UZ) <= DELTA_TOLERANCE
+            if (n2 is null || n1 is null) return false;
+
+            return (Math.Abs(n1.X - n2.X) / Math.Min(n1.X, n2.X) <= ServerSettings.DeltaEpsilon && //-V3115
+                    Math.Abs(n1.Y - n2.Y) / Math.Min(n1.Y, n2.Y) <= ServerSettings.DeltaEpsilon &&
+                    Math.Abs(n1.Z - n2.Z) / Math.Min(n1.Z, n2.Z) <= ServerSettings.DeltaEpsilon &&
+                    Math.Abs(n1.UX - n2.UX) / Math.Min(n1.UX, n2.UX) <= ServerSettings.DeltaEpsilon &&
+                    Math.Abs(n1.UY - n2.UY) / Math.Min(n1.UY, n2.UY) <= ServerSettings.DeltaEpsilon &&
+                    Math.Abs(n1.UZ - n2.UZ) / Math.Min(n1.UZ, n2.UZ) <= ServerSettings.DeltaEpsilon
                     );
         }
 
-        public static bool operator !=(Delta d1, Delta d2)
+        public static bool operator !=(Delta n1, Delta n2)
         {
-            return !(d1 == d2);
+            if (n2 is null || n1 is null) return true;
+
+            return !(n1 == n2);
         }
     }
 }

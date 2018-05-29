@@ -8,8 +8,6 @@ namespace GeneralRemote
     [Serializable]
     public class Coord : NumbersSet
     {
-        private const double COORD_TOLERANCE = 0.1; //Из конфига
-
         /// <param name="x">Коордната узла по оси X</param>
         /// <param name="y">Коордната узла по оси Y</param>
         /// <param name="z">Коордната узла по оси Z</param>
@@ -22,9 +20,9 @@ namespace GeneralRemote
         {
             if (n2 is null || n1 is null) return false;
 
-            return (Math.Abs(n1.X - n2.X) <= COORD_TOLERANCE && //-V3115
-                    Math.Abs(n1.Y - n2.Y) <= COORD_TOLERANCE &&
-                    Math.Abs(n1.Z - n2.Z) <= COORD_TOLERANCE
+            return (Math.Abs(n1.X - n2.X) / Math.Min(n1.X, n2.X) <= ServerSettings.CoordEpsilon && //-V3115
+                    Math.Abs(n1.Y - n2.Y) / Math.Min(n1.Y, n2.Y) <= ServerSettings.CoordEpsilon &&
+                    Math.Abs(n1.Z - n2.Z) / Math.Min(n1.Z, n2.Z) <= ServerSettings.CoordEpsilon
             );
         }
 
@@ -35,10 +33,7 @@ namespace GeneralRemote
         {
             if (n2 is null || n1 is null) return true;
 
-            return (Math.Abs(n1.X - n2.X) > COORD_TOLERANCE || //-V3115
-                    Math.Abs(n1.Y - n2.Y) > COORD_TOLERANCE ||
-                    Math.Abs(n1.Z - n2.Z) > COORD_TOLERANCE
-            );
+            return !(n1 == n2);
         }
     }
 }

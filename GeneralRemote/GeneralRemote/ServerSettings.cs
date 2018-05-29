@@ -66,5 +66,16 @@ namespace GeneralRemote
         /// Указывает на необходимость вызова исключения в серверном приложении при обрыве связи с клиентом
         /// </summary>
         public static bool NeedToRaiseException { get; set; }
+
+        // Погрешности (в %)
+        /// <summary>
+        /// Погрешность для сравнения координат узлов
+        /// </summary>
+        public static double CoordEpsilon { get; set; }
+
+        /// <summary>
+        /// Погрешность для сравнения перемещений узлов
+        /// </summary>
+        public static double DeltaEpsilon { get; set; }
     }
 }
