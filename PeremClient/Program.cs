@@ -104,6 +104,7 @@ namespace PeremClient
                 () =>
                 {
                     CoordsPU = Parser.ParseCoords(ClientSettings.InputFile1);
+                    remote.AddNodesForReport(CoordsPU.Count);   // Кол-во узлов для отчёта
                     Console.WriteLine("Координаты узлов ПЕ считаны");
                 },
                 () =>

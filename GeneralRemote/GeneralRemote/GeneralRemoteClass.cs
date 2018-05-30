@@ -80,5 +80,11 @@ namespace GeneralRemote
         /// <see langword="false"/> в противном случае
         /// </summary>
         public bool IsEpsilonsSet { get; set; } = false;
+
+        /// <param name="n">Количество добавляемых узлов</param>
+        public void AddNodesForReport(int n)
+        {
+            ServerSettings.TotalNodes += n;
+        }
     }
 }

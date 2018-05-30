@@ -13,16 +13,18 @@ namespace PeremServer
         private StreamWriter _sw;
         private int _countWrongCoords = 0;
         private int _countWrongDelta = 0;
+        private int _time;
 
         public string File { get; set; }
         public List<NodePair> Result { get; set; }
 
         public Report() { }
 
-        public Report(string file, List<NodePair> result)
+        public Report(string file, List<NodePair> result, int time)
         {
             File = file;
             Result = result;
+            _time = time;
         }
 
         public void GenerateReport()
@@ -49,16 +51,23 @@ namespace PeremServer
 
         private void WriteFooter()
         {
-            _sw.WriteLine($"Всего обработано узлов: {null}");
+            if (_countWrongCoords + _countWrongDelta == 0)
+            {
+                _sw.WriteLine("ОШИБОК НЕ ОБНАРУЖЕНО");
+                _sw.WriteLine();
+            }
+            _sw.WriteLine($"Всего обработано узлов: {ServerSettings.TotalNodes}");
             _sw.WriteLine($"Количество ПЕ: {ServerSettings.ProjectUnits}");
             _sw.WriteLine($"Ошибок координат: {_countWrongCoords}");
             _sw.WriteLine($"Ошибок перемещений: {_countWrongDelta}");
+            _sw.WriteLine($"Затрачено времени: {_time} секунд");
         }
 
         private void WriteHeader()
         {
             _sw.WriteLine("Отчёт о проверке решения задачи методом РПЕ");
             _sw.WriteLine($"Дата: {DateTime.Now.ToString()}");
+            _sw.WriteLine("Обнаружены следующие ошибки:");
             _sw.WriteLine();
         }
 

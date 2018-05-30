@@ -77,5 +77,10 @@ namespace GeneralRemote
         /// Погрешность для сравнения перемещений узлов
         /// </summary>
         public static double DeltaEpsilon { get; set; }
+
+        /// <summary>
+        /// Подсчёт общего количества узлов
+        /// </summary>
+        public static int TotalNodes { get; set; } = 0;
     }
 }

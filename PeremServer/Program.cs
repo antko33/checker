@@ -14,6 +14,8 @@ namespace PeremServer
     {
         static void Main(string[] args)
         {
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
             try
             {
                 Init();
@@ -57,8 +59,9 @@ namespace PeremServer
             }
             ServerSettings.NeedToRaiseException = false;
 
+            sw.Stop();
             Console.WriteLine("Создание отчёта...");
-            Report report = new Report(ServerSettings.Report, ServerSettings.Result);
+            Report report = new Report(ServerSettings.Report, ServerSettings.Result, sw.Elapsed.Seconds);
             try
             {
                 report.GenerateReport();
