@@ -110,7 +110,7 @@ namespace PeremServer
             }
 
             ServerSettings.CoordEpsilon = Convert.ToDouble(ini.GetValue("CoordEpsilon", "General", "0.1"));
-            ServerSettings.DeltaEpsilon = Convert.ToDouble(ini.GetValue("DeltaEpsilon", "General", "0.2"));
+            ServerSettings.DeltaEpsilon = Convert.ToDouble(ini.GetValue("DeltaEpsilon", "General", "1"));
         }
     }
 }

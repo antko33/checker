@@ -56,5 +56,29 @@ namespace GeneralRemote
             if (ServerSettings.NeedToRaiseException)
                 ServerSettings.serverThread.Abort(sender);
         }
+
+        /// <summary>
+        /// Получение погрешности для сравнения координат
+        /// </summary>
+        /// <returns>Искомая погрешность</returns>
+        public double GetCoordEpsilon()
+        {
+            return ServerSettings.CoordEpsilon;
+        }
+
+        /// <summary>
+        /// Получение погрешности для сравнения координат
+        /// </summary>
+        /// <returns>Искомая погрешность</returns>
+        public double GetDeltaEpsilon()
+        {
+            return ServerSettings.DeltaEpsilon;
+        }
+
+        /// <summary>
+        /// <see langword="true"/>, если погрешности заданы,
+        /// <see langword="false"/> в противном случае
+        /// </summary>
+        public bool IsEpsilonsSet { get; set; } = false;
     }
 }

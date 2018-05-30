@@ -8,6 +8,11 @@ namespace GeneralRemote
     [Serializable]
     public class Coord : NumbersSet
     {
+        /// <summary>
+        /// Погрешность для сравнения координат 2 узлов
+        /// </summary>
+        public static double Epsilon { get; set; }
+
         /// <param name="x">Коордната узла по оси X</param>
         /// <param name="y">Коордната узла по оси Y</param>
         /// <param name="z">Коордната узла по оси Z</param>
@@ -20,10 +25,14 @@ namespace GeneralRemote
         {
             if (n2 is null || n1 is null) return false;
 
-            return (Math.Abs(n1.X - n2.X) / Math.Min(n1.X, n2.X) <= ServerSettings.CoordEpsilon && //-V3115
-                    Math.Abs(n1.Y - n2.Y) / Math.Min(n1.Y, n2.Y) <= ServerSettings.CoordEpsilon &&
-                    Math.Abs(n1.Z - n2.Z) / Math.Min(n1.Z, n2.Z) <= ServerSettings.CoordEpsilon
-            );
+            return (Math.Abs(n1.X - n2.X) <= Epsilon && //-V3115
+                    Math.Abs(n1.Y - n2.Y) <= Epsilon &&
+                    Math.Abs(n1.Z - n2.Z) <= Epsilon);
+
+            //return (Math.Abs(n1.X - n2.X) <= Math.Abs(Math.Min(n1.X, n2.X) * Epsilon) && //-V3115
+            //        Math.Abs(n1.Y - n2.Y) <= Math.Abs(Math.Min(n1.Y, n2.Y) * Epsilon) &&
+            //        Math.Abs(n1.Z - n2.Z) <= Math.Abs(Math.Min(n1.Z, n2.Z) * Epsilon)
+            //);
         }
 
         /// <summary>

@@ -72,6 +72,13 @@ namespace PeremClient
                 return;
             }
 
+            // Задаём погрешности
+            if (!remote.IsEpsilonsSet)
+            {
+                Coord.Epsilon = remote.GetCoordEpsilon();
+                Delta.Epsilon = remote.GetDeltaEpsilon();
+            }
+
             // Получение задания с сервера
             Console.Write("Получение задания... ");
             try

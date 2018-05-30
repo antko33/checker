@@ -6,7 +6,7 @@ namespace GeneralRemote
     /// <summary>
     /// Предтавляет набор свойств приложения сервера
     /// </summary>
-    public class ServerSettings
+    public static class ServerSettings
     {
         /// <summary>
         /// Порт, на котором запущено приложение
