@@ -58,7 +58,14 @@ namespace ClientMonitor
 
         private static void Proc_Exited(object sender, EventArgs e)
         {
-            remote.OnClientExit(host, null);
+            try
+            {
+                remote.OnClientExit(host, null);
+            }
+            catch
+            {
+                // на случай, если сервер уже закрыт
+            }
             Application.Exit();
         }
     }
