@@ -12,6 +12,8 @@ namespace ClientMonitor
         static GeneralRemoteClass remote = null;
         static string host = String.Empty;
 
+        const string CLIENT_APP_NAME = "consoleapplication";
+
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
@@ -23,7 +25,7 @@ namespace ClientMonitor
 
             var q =
                 from p in ps
-                where p.ProcessName.ToLower() == "consoleapplication"
+                where p.ProcessName.ToLower() == CLIENT_APP_NAME
                 select p;
 
             if (q != null) proc = q.First();
