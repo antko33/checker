@@ -27,14 +27,14 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\PeremClient\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GeneralRemote">
-      <HintPath>..\GeneralRemote\GeneralRemote\bin\Debug\GeneralRemote.dll</HintPath>
+      <HintPath>..\GeneralRemote\GeneralRemote\bin\Release\GeneralRemote.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
