@@ -56,7 +56,7 @@ namespace PeremServer
                 _sw.WriteLine("ОШИБОК НЕ ОБНАРУЖЕНО");
                 _sw.WriteLine();
             }
-            _sw.WriteLine($"Всего обработано узлов: {ServerSettings.TotalNodes}");
+            _sw.WriteLine($"Всего обработано узлов: {ServerSettings.TotalNodes * 2}");  // Учитываются узлы и в ПЕ, и в КЭ-модели
             _sw.WriteLine($"Количество ПЕ: {ServerSettings.ProjectUnits}");
             _sw.WriteLine($"Ошибок координат: {_countWrongCoords}");
             _sw.WriteLine($"Ошибок перемещений: {_countWrongDelta}");
